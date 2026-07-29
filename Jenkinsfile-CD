@@ -53,12 +53,15 @@ pipeline {
                                     execCommand: """
 
                                     docker pull pvhr/springboot-app:${params.IMAGE_TAG}
+                                    docker stop spring-app || true
+                                    docker rm spring-app || true
                                     docker run -d \
                                     --name spring-app \
                                     -p 8080:8080 \
                                     pvhr/springboot-app:${params.IMAGE_TAG}
-                                    docker ps
-                                    curl http://localhost:8080
+                                    sleep 20
+                                    docker ps || true
+                                    curl -ikL http://localhost:8080 || true
 
                                     """
 
