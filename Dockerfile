@@ -1,6 +1,6 @@
 FROM eclipse-temurin:25-jre
 LABEL maintainer="Siva Reddy"
 WORKDIR /app
-COPY spring-petclinic-4.0.0-SNAPSHOT.jar spring-petclinic-4.0.0-SNAPSHOT.jar
+COPY spring-petclinic.jar spring-petclinic.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "spring-petclinic-4.0.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "spring-petclinic.jar"]
