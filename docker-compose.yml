@@ -1,37 +1,70 @@
 services:
-  mysql:
-    image: mysql:9.7
-    container_name: mysql-db
+postgres:
+  image: postgres:15
+    container_name: postgres
     restart: always
-
     environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: springbootDB
-      MYSQL_USER: springuser
-      MYSQL_PASSWORD: spring1234
+      postgres_ROOT_PASSWORD: root123
+      postgres_DATABASE: postgresDB
+      postgres_USER: postgresuser
+      postgres_PASSWORD: postgres1234
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgressql/data
     networks:
-      - petclinic-network
- petclinic:
-    image: somisettyvasanth/spring-boot:6
-    container_name: spring-app
+      - sonar-network
+ sonarqube:
+    image: sonarqube:its-community
+    container_name: sonarqube
     restart: always
     depends_on:
-      - mysql
+      - postgres
     ports:
-      - "8083:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: mysql
-      MYSQL_URL: jdbc:mysql://mysql:3306/springbootDB
-      MYSQL_USER: springuser
-      MYSQL_PASS: spring1234
+      - "9000:9000"
+    environment: 
+      postgres_URL: jdbc:postgresql://postgres:5432/postgresDB
+      postgres_USER: postgresuser
+      postgres_PASS: postgres1234
     networks:
-      - petclinic-network
-
+      - sonar-network
 volumes:
-  mysql-data:
-networks:
-  petclinic-network:
+  postgres-data:
+netwoversion: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_ROOT_PASSWORD: root123
+      POSTGRES_DB: postgresDB
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: postgres1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - sonar-network
+ sonarqube:
+    image: sonarqube:lts-community
+    container_name: sonarqube
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "9000:9000"
+    environment:
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/postgresDB
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: postgres1234
+    networks:
+      - sonar-network
+volumes:
+  postgres-data:
+networks: 
+  sonar-network:rks: 
+  sonar-network:
+
+
