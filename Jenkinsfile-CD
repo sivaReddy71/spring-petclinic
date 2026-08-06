@@ -11,7 +11,7 @@ pipeline {
     }
 
     environment {
-        EC2_HOST = "13.235.49.6"
+        EC2_HOST = "13.203.217.68"
         EC2_USER = "ubuntu"
         IMAGE_NAME = "pvhr/springboot-app"
         CONTAINER_NAME = "spring-app"
